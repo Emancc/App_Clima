@@ -1,8 +1,21 @@
 from flask import Flask, render_template, request
 import requests
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = ( 
+    'mysql+pymysql://root:@localhost/db_clima'
+)  #meter un monton de datos -usuario contraceña nombre de base de datos
+
+
+
+
+db = SQLAlchemy(app)
+
+migrate = Migrate(app, db)
+
+from models import City
 
 ciudades = {
     "Río Cuarto": {"lat": -33.1333, "lon": -64.3500},
